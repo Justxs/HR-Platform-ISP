@@ -7,7 +7,9 @@ function HomePage() {
   return (
     <div>
       <h1>Welcome to HomePage</h1>
+      <br/>
       <Button onClick={() => {navigate("/login")}}>Sing in</Button>
+      <br/>
       <Button onClick={() => {navigate("/register")}}>Sing up</Button>
     </div>
   )
