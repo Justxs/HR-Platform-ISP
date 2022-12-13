@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
-import { Button } from 'react-bootstrap'
+
 
 function HomePage() {
   let navigate = useNavigate();
@@ -8,9 +8,9 @@ function HomePage() {
     <div>
       <h1>Welcome to HomePage</h1>
       <br/>
-      <Button onClick={() => {navigate("/login")}}>Sing in</Button>
+      <button onClick={() => {navigate("/login")}}>Sing in</button>
       <br/>
-      <Button onClick={() => {navigate("/register")}}>Sing up</Button>
+      <button onClick={() => {navigate("/register")}}>Sing up</button>
     </div>
   )
 }
