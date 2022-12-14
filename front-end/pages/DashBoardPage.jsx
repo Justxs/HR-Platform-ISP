@@ -1,14 +1,12 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+
 function DashBoardPage() {
   let navigate = useNavigate();
   return (
-    <div>DashBoardPage
-        <br/>
-        <button onClick={() => {navigate("/login")}}>login</button>
-        <br/>
-        <button onClick={() => {navigate("/register")}}>sing up</button>
-        <br/>
+    <div className="container bg-white rounded">
+      <h1>DashBoardPage</h1>
+
         <button onClick={() => {navigate("/logout")}}>logout</button>
         <br/>
         <button onClick={() => {navigate("/account")}}>Account</button>
