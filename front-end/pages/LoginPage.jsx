@@ -4,12 +4,23 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function LoginPage() {
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPwd] = useState('');
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    await fetch('http://localhost:5183/api/login',{
+      method: 'POST',
+      headers: {'Content-Type' : 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
     navigate("/dashboard");
   }
 
@@ -18,12 +29,12 @@ function LoginPage() {
       <h1 className="text-center">Sign In</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Login">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             required
-            type="text"
-            placeholder="Username"
-            onChange={(event) => setUser(event.target.value)}
+            type="email"
+            placeholder="Email"
+            onChange={(event) => setEmail(event.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="Login">

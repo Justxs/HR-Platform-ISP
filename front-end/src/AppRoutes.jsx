@@ -14,19 +14,20 @@ import CommentPage from '../pages/CommentPage'
 import ApplicationListPage from '../pages/ApplicationListPage'
 import JobAdPage from '../pages/JobAdPage'
 import JobOfferPage from '../pages/JobOfferPage'
-import LogoutPage from '../pages/LogoutPage'
 import JobOfferCreate from '../pages/JobOfferCreate'
 
-function AppRoutes() {
+function AppRoutes(props) {
+  
+  
+  let username = props.username;
   return (
     <>
     <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<CreateAccountPage/>} />
-        <Route path="/logout" element={<LogoutPage/>} />
 
-        <Route path="/dashboard" element={<DashBoardPage/>} />
+        <Route path="/dashboard" element={<DashBoardPage username = {username}/>} />
         <Route path="/comment" element={<CommentPage/>} />
         <Route path="/applications" element={<ApplicationListPage/>} />
 

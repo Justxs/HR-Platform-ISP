@@ -7,17 +7,30 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function CreateAccountPage() {
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [username, setUser] = useState('');
+  const [password, setPwd] = useState('');
   const [pwdr, setPwdr] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [firstname, setName] = useState('');
+  const [lastname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   let navigate = useNavigate();
-
+  
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    //navigate("/dashboard");
+    e.preventDefault();    
+
+    await fetch('http://localhost:5183/api/register',{
+      method: 'POST',
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        username,
+        password,
+        email
+      })
+    });
+
+    navigate("/login");
   }
 
   return (
