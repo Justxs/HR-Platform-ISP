@@ -11,5 +11,9 @@ namespace back_end.Models
         [JsonIgnore]
         public string? Password { get; set; }       
         public string? Email { get; set; }
+        [JsonIgnore]
+        public string? VerificationToken { get; set; }
+        public DateTime? VerfiedAt { get; set; }
+
     }
 }

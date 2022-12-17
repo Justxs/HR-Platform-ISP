@@ -2,6 +2,7 @@
 using back_end.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace back_end.Controllers
 {
@@ -25,7 +26,8 @@ namespace back_end.Controllers
                 LastName = dto.LastName,
                 Username = dto.Username,
                 Email = dto.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                VerificationToken = CreateRandomToken()
             };
             
 
@@ -54,7 +56,7 @@ namespace back_end.Controllers
             });
         }
         [HttpGet("user")]
-        public IActionResult User()
+        public IActionResult Userver()
         {
             try
             {
@@ -65,6 +67,8 @@ namespace back_end.Controllers
                 int userId = int.Parse(token.Issuer);
 
                 var user = _repository.GetById(userId);
+
+
 
                 return Ok(user);
             }
@@ -78,6 +82,20 @@ namespace back_end.Controllers
         {
             Response.Cookies.Delete("jwt");
             return Ok(new {message = "Success"});
+        }
+        [HttpPost("verify")]
+        public IActionResult Verification(string token)
+        {
+            var user = _repository.GetByVerificationToken(token);
+            if (user == null) return BadRequest("Invalid verificaiton token.");
+            user.VerfiedAt = DateTime.Now;
+            _repository.SaveChanges(user);
+
+            return Ok("");
+        }
+        private string CreateRandomToken()
+        {
+            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

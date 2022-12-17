@@ -1,6 +1,6 @@
 global using back_end.Data;
 global using back_end.Models;
-using back_end.Helpers;
+global using back_end.Helpers;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +17,7 @@ builder.Services.AddCors(option=> option.AddPolicy(name:"HRplatform",
         policy.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
     }));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddDbContext<UserContext>();
 

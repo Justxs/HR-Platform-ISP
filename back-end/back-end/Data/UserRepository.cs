@@ -14,6 +14,12 @@
             user.Id = _context.SaveChanges();
             return user;
         }
+        public void SaveChanges(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
+        }
         public User GetByEmail(string email)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
@@ -22,6 +28,9 @@
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
-
+        public User GetByVerificationToken(string token)
+        {
+            return _context.Users.FirstOrDefault(u => u.VerificationToken == token);
+        }
     }
 }
