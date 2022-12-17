@@ -13,6 +13,7 @@ function AccountPage() {
         <button onClick={() => {navigate("/account/passwordReset")}}>Reset password</button>
         <br/>
         <button onClick={() => {navigate("/account/edit")}}>edit account</button>
+        <br/><br/>
     </div>
   )
 }
