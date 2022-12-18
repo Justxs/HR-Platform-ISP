@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using back_end.Helpers;
+using System.Security.Claims;
 
 namespace back_end.Controllers
 {
@@ -20,7 +21,10 @@ namespace back_end.Controllers
         [HttpPost("/account/edit")]
         public IActionResult Edit(EditDto dto)
         {
-            _repository.Edit(dto);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _repository.GetById(Convert.ToInt16(userId));
+            _repository.Edit(dto, user);
+
             return Ok(new { message = "User update successful" });
         }
 
