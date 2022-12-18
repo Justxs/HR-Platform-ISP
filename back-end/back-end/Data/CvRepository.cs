@@ -32,6 +32,8 @@ public class CvRepository : ICvRepository
     public async Task AddAsync(Cv cv)
     {
         await _dataContext.Cvs.AddAsync(cv);
+        
+        await _dataContext.SaveChangesAsync();
     }
 
     public async Task SaveChangesAsync()

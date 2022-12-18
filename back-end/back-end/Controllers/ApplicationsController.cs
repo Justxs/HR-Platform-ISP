@@ -28,10 +28,10 @@ public class ApplicationsController : Controller
     }
 
 
-    [HttpGet]
-    public async Task<IActionResult> Get(int adId)
+    [HttpGet("{applicationId:int}")]
+    public async Task<IActionResult> Get(int adId, int applicationId)
     {
-        var application = await _applicationRepository.GetAsync(adId);
+        var application = await _applicationRepository.GetAsync(applicationId);
 
         if (application is null) return NotFound();
 

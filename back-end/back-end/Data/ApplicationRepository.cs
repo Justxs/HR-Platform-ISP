@@ -46,6 +46,8 @@ public class ApplicationRepository : IApplicationRepository
     public async Task AddAsync(Aplication application)
     {
         await _dataContext.AddAsync(application);
+        
+        await _dataContext.SaveChangesAsync();
     }
 
     public async Task SaveChangesAsync()

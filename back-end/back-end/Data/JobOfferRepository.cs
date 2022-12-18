@@ -37,6 +37,8 @@ public class JobOfferRepository : IJobOfferRepository
     public async Task AddAsync(JobOffer offer)
     {
         await _dataContext.AddAsync(offer);
+        
+        await _dataContext.SaveChangesAsync();
     }
 
     public async Task SaveChangesAsync()

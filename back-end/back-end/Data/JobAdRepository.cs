@@ -14,7 +14,7 @@ public class JobAdRepository : IJobAdRepository
     public async Task<List<JobAd>> GetAllAsync()
     {
         return await _dataContext.JobAds
-            .Include(x => x)
+            .Include(x => x.User)
             .Include(x => x.Aplications)
             .Include(x => x.Requirements)
             .Include(x => x.JobOffer)
@@ -24,7 +24,7 @@ public class JobAdRepository : IJobAdRepository
     public async Task<JobAd?> GetAsync(int id)
     {
         return await _dataContext.JobAds
-            .Include(x => x)
+            .Include(x => x.User)
             .Include(x => x.Aplications)
             .Include(x => x.Requirements)
             .Include(x => x.JobOffer)
@@ -41,6 +41,8 @@ public class JobAdRepository : IJobAdRepository
     public async Task AddAsync(JobAd ad)
     {
         await _dataContext.AddAsync(ad);
+        
+        await _dataContext.SaveChangesAsync();
     }
 
     public async Task SaveChangesAsync()
