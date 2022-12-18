@@ -1,5 +1,6 @@
 ﻿using back_end.Dtos;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -38,6 +39,20 @@ namespace back_end.Data
             };
             // save user
             _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+        public void Edit(EditDto model)
+        {
+            if (_context.Users.Any(x => x.Username == model.Username))
+                throw new Exception("Username '" + model.Username + "' is already taken");
+
+            User user = GetByToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9rQHNhay5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlzaWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2FuZGlkYXRlIiwiZXhwIjoxNjcxNDc5NDc3fQ.WPVr868XYhjDTm1E32Y-KS9JEfyPBQgQRGc0l3aeZOQ");
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Username = model.Username;
+
+            _context.Users.Update(user);
             _context.SaveChanges();
         }
         public AuthenticateResponse Login(LoginDto model)
@@ -80,6 +95,10 @@ namespace back_end.Data
         public User GetByEmail(string email)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
+        }
+        public User GetByToken(string token)
+        {
+            return _context.Users.FirstOrDefault(u => u.Password == token);
         }
         public User GetById(int id)
         {

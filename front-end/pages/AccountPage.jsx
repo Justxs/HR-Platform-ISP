@@ -10,7 +10,7 @@ function AccountPage() {
         <br/>
         <button onClick={() => {navigate("/account/import")}}>import data from linkedin</button>
         <br/>
-        <button onClick={() => {navigate("/account/passwordReset")}}>Reset password</button>
+        <button onClick={() => {navigate("/account/passwordChange")}}>Reset password</button>
         <br/>
         <button onClick={() => {navigate("/account/edit")}}>edit account</button>
         <br/><br/>
