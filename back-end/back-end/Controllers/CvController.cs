@@ -40,9 +40,16 @@ public class CvController : Controller
     public async Task<ActionResult<CvDto>> Create(CreateCvDto dto)
     {
         var path = $"{AppDomain.CurrentDomain.BaseDirectory}/cv/{dto.UserId}.pdf";
-        var bytes = Convert.FromBase64String(dto.FileBase64);
-        await System.IO.File.WriteAllBytesAsync(path, bytes);
-        
+        try
+        {
+            var bytes = Convert.FromBase64String(dto.FileBase64);
+            await System.IO.File.WriteAllBytesAsync(path, bytes);
+        }
+        catch (FormatException)
+        {
+            return BadRequest();
+        }
+
         var cv = new Cv()
         {
             DateOfCreation = DateTime.UtcNow,
@@ -61,10 +68,17 @@ public class CvController : Controller
         var cv = await _cvRepository.GetAsync(cvId);
 
         if (cv is null) return NotFound();
-       
-        var path = $"{AppDomain.CurrentDomain.BaseDirectory}/cv/{dto.UserId}.pdf";
-        var bytes = Convert.FromBase64String(dto.FileBase64);
-        await System.IO.File.WriteAllBytesAsync(path, bytes);
+
+        try
+        {
+            var path = $"{AppDomain.CurrentDomain.BaseDirectory}/cv/{dto.UserId}.pdf";
+            var bytes = Convert.FromBase64String(dto.FileBase64);
+            await System.IO.File.WriteAllBytesAsync(path, bytes);
+        }
+        catch (FormatException)
+        {
+            return BadRequest();
+        }
 
 
         return Ok(cv.ToDto());
