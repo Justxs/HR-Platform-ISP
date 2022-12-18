@@ -1,11 +1,15 @@
-﻿namespace back_end.Data
+﻿using back_end.Dtos;
+
+namespace back_end.Data
 {
     public interface IUserRepository
     {
-        User Create(User user);
+        void Register(RegisterDto model);
         User GetByEmail(string email);
         User GetById(int id);
-        User GetByVerificationToken(string token);
         void SaveChanges(User user);
+        AuthenticateResponse Login(LoginDto model);
+        public IEnumerable<User> GetAll();
+        string CreateToken(User user);
     }
 }
