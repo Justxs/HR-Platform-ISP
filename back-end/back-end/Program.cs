@@ -51,10 +51,21 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+// builder.Services.AddDbContext<DataContext>(options =>
+// {
+//     options.UseInMemoryDatabase("Db");
+// });
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IEmailRepository, EmailRepository>();
-builder.Services.AddDbContext<DataContext>();
+builder.Services
+    .AddScoped<IUserRepository, UserRepository>()
+    .AddScoped<IEmailRepository, EmailRepository>()
+    .AddScoped<IApplicationRepository, ApplicationRepository>()
+    .AddScoped<IJobAdRepository, JobAdRepository>()
+    .AddScoped<IJobOfferRepository, JobOfferRepository>()
+    .AddScoped<ICvRepository, CvRepository>()
+    .AddScoped<ILevelRepository, LevelRepository>()
+    .AddScoped<IRequirementRepository, RequirementRepository>();
+// builder.Services.AddDbContext<DataContext>();
 
 
 var app = builder.Build();
