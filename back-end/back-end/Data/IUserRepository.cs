@@ -11,5 +11,6 @@ namespace back_end.Data
         AuthenticateResponse Login(LoginDto model);
         public IEnumerable<User> GetAll();
         string CreateToken(User user);
+        void Edit(EditDto model);
     }
 }
