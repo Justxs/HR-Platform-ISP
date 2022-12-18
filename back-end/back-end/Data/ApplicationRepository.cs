@@ -22,8 +22,6 @@ public class ApplicationRepository : IApplicationRepository
     public async Task<List<Aplication>> GetAllAsync(int adId)
     {
         return await _dataContext.Aplication
-            .Include(x => x.User)
-            .Include(x => x.JobAd)
             .Where(x => x.JobAdId == adId)
             .ToListAsync();
     }
@@ -31,8 +29,6 @@ public class ApplicationRepository : IApplicationRepository
     public async Task<Aplication?> GetAsync(int id)
     {
         return await _dataContext.Aplication
-            .Include(x => x.User)
-            .Include(x => x.JobAd)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 

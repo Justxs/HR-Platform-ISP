@@ -22,8 +22,6 @@ public class JobOfferRepository : IJobOfferRepository
     public async Task<JobOffer?> GetAsync(int id)
     {
         return await _dataContext.JobOffers
-            .Include(x => x.User)
-            .Include(x => x.JobAd)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
