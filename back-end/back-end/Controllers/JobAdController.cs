@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace back_end.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/job-ads")]
 [ApiController]
 public class JobAdController : Controller
 {
