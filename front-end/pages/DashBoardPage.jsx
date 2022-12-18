@@ -3,22 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 function DashBoardPage(props) {
-  /*useEffect(()=>{
-    axios.get('https://localhost:7230/WeatherForecast')
-    .then(res=>{
-      console.log(res)
-      setTest(res.data)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-  }, [])*/
+
   let navigate = useNavigate();
   if (props.username === undefined ){
     navigate('/');
   }
   return (
-    <div className="container bg-white rounded">
+    <div className="shadow container w-25 bg-white rounded">
       <h1>DashBoardPage</h1>
         <button onClick={() => {navigate("/account")}}>Account</button>
         <br/>

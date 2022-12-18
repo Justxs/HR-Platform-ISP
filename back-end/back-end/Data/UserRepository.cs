@@ -21,7 +21,8 @@ namespace back_end.Data
             // validate
             if (_context.Users.Any(x => x.Username == model.Username))
                 throw new Exception("Username '" + model.Username + "' is already taken");
-
+            if (_context.Users.Any(x => x.Email == model.Email))
+                throw new Exception("Email '" + model.Email + "' is already taken");
             // map model to new user object
             User user = new User
             {
@@ -63,7 +64,7 @@ namespace back_end.Data
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

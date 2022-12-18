@@ -15,37 +15,44 @@ import ApplicationListPage from '../pages/ApplicationListPage'
 import JobAdPage from '../pages/JobAdPage'
 import JobOfferPage from '../pages/JobOfferPage'
 import JobOfferCreate from '../pages/JobOfferCreate'
-
-function AppRoutes(props) {
-  
-  
-  let username = props.username;
+import Layout from '../components/Layout'
+import Missing404 from '../pages/Missing404'
+import RequireAuth from '../components/RequireAuth'
+function AppRoutes() {
   return (
-    <>
     <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/login" element={<LoginPage/>} />
-        <Route path="/register" element={<CreateAccountPage/>} />
+        <Route path='/' element={<Layout/>}>
 
-        <Route path="/dashboard" element={<DashBoardPage username = {username}/>} />
-        <Route path="/comment" element={<CommentPage/>} />
-        <Route path="/applications" element={<ApplicationListPage/>} />
+          <Route path="" element={<HomePage/>}/>
+          <Route path="login" element={<LoginPage/>} />
+          <Route path="register" element={<CreateAccountPage/>} />
+          <Route element={<RequireAuth allowedRoles={[0,1,2]}/>}>
+            <Route path="dashboard" element={<DashBoardPage/>} />
+            <Route path="account" element={<AccountPage/>}></Route>
+            <Route path="account/CV" element={<UploadCVPage/>}></Route>
+            <Route path="account/import" element={<ImportData/>}></Route>
+            <Route path="account/passwordReset" element={<ChangePasswordPage/>}></Route>
+            <Route path="account/edit" element={<EditAccountPage/>}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[0]}/>}>
+            <Route path="jobsad" element={<JobAdPage/>} />
+            <Route path="jobsad/id" element={<JobOfferPage/>} />
 
-        <Route path="/jobsad" element={<JobAdPage/>} />
-        <Route path="/jobsad/id" element={<JobOfferPage/>} />
-        <Route path="/createAccount" element={<CreateAccountPage/>}></Route>
-        <Route path="/job" element={<JobAdPage/>} />
-        <Route path="/jobOffer" element={<JobOfferPage/>} />
-        <Route path="/job/create" element={<JobOfferCreate/>} />
-        <Route path="/account" element={<AccountPage/>}></Route>
-        <Route path="/account/CV" element={<UploadCVPage/>}></Route>
-        <Route path="/account/import" element={<ImportData/>}></Route>
-        <Route path="/account/passwordReset" element={<ChangePasswordPage/>}></Route>
-        <Route path="/account/edit" element={<EditAccountPage/>}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1]}/>}>
+            <Route path="comment" element={<CommentPage/>} />
+            <Route path="applications" element={<ApplicationListPage/>} />
+            <Route path="jobOffer" element={<JobOfferPage/>} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[2]}/>}>
+            <Route path="createAccount" element={<CreateAccountPage/>}></Route>
+            <Route path="job" element={<JobAdPage/>} />
+            <Route path="job/create" element={<JobOfferCreate/>} />
+          </Route>
 
-        <Route path="*" element={<Navigate to ={"/"}/>} />
+          <Route path="*" element={<Missing404/>} />
+        </Route>
     </Routes>
-    </>
   );
 }
 

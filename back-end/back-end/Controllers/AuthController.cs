@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using back_end.Helpers;
+using System.Security.Claims;
 
 namespace back_end.Controllers
 {
@@ -20,24 +21,38 @@ namespace back_end.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
-            _repository.Register(dto);
+            try
+            {
+                _repository.Register(dto);
+            }
+            catch(Exception ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
             return Ok(new { message = "Registration successful" });
         }
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Login(LoginDto model)
         {
-            var response = _repository.Login(model);
-            return Ok(response);
+            try
+            {
+                var response = _repository.Login(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
-
         [HttpGet("[action]")]
         public IActionResult GetMe()
         {
-            var user = User.Identity.Name;
-
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _repository.GetById(Convert.ToInt16(userId));
             return Ok(user);
         }
+        [Authorize (Roles="Admin")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
@@ -45,7 +60,7 @@ namespace back_end.Controllers
             return Ok(users);
         }
 
-        [HttpPost("logout")]
+        [HttpPost("[action]")]
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");

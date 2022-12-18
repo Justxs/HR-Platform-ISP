@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from '../src/Api/axios';
 
 function CreateAccountPage() {
   const [username, setUser] = useState('');
@@ -13,28 +14,45 @@ function CreateAccountPage() {
   const [firstname, setName] = useState('');
   const [lastname, setSurname] = useState('');
   const [email, setEmail] = useState('');
+  const [errMsg, setErrMsg] = useState('');
   let navigate = useNavigate();
-  
+  useEffect(()=>{
+    setErrMsg('')
+  },[username, password, pwdr,email]);
   const handleSubmit = async (e) => {
-    e.preventDefault();    
-
-    await fetch('http://localhost:5183/api/register',{
-      method: 'POST',
-      headers: {'Content-Type' : 'application/json'},
-      body: JSON.stringify({
-        firstname,
-        lastname,
-        username,
-        password,
+    e.preventDefault();
+    if(password!==pwdr){
+      setErrMsg('Passwords dont match');
+      return;
+    }
+    try{
+      const response = await axios.post('/api/register',
+      JSON.stringify({
+        firstname, lastname,
+        username, password,
         email
-      })
-    });
+        }),
+        {
+        headers: {'Content-Type': 'application/json'},
+        withCredentials: true
+        });
+      navigate("/login");
+    }
+    catch(err){
+      if(!err?.response){
+        setErrMsg('No server response');
+      }else if(err.response?.status===409){
+        setErrMsg(err.response.data.message);
+      }else{
+        setErrMsg('Something wrong');
+      }
+    }
+    
 
-    navigate("/login");
   }
 
   return (
-    <div className="container w-25 bg-white rounded">
+    <div className="shadow container w-25 bg-white rounded">
       <h1 className="text-center">Create an account</h1>
       <Form onSubmit={handleSubmit}>
         <Row>
@@ -99,6 +117,7 @@ function CreateAccountPage() {
         </Form.Group>
         <Button className="mb-3" type="submit">Register</Button>
       </Form>
+      <p className='text-danger'>{errMsg}</p>
     </div>
   );
 }

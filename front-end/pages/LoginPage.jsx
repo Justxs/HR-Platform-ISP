@@ -1,31 +1,50 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import useAuth from "../src/Hooks/useAuth";
+import axios from "../src/Api/axios";
 function LoginPage() {
+  const {setAuth} = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPwd] = useState('');
-  let navigate = useNavigate();
-
+  const [errMsg, setErrMsg] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await fetch('http://localhost:5183/api/login',{
-      method: 'POST',
-      headers: {'Content-Type' : 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({
+    
+    try {
+      const response= await axios.post('/api/login',
+      JSON.stringify({
         email,
         password
-      })
-    });
+        }),
+        {
+        headers: {'Content-Type': 'application/json'},
+        withCredentials: true
+        });
+      const token = response?.data?.token;
+      const role = response?.data?.role;
+      setAuth({email, password,token, role});
+      setEmail('');
+      setPwd('');
+      navigate("/dashboard");
+    } catch (err) {
+      if(!err?.response){
+        setErrMsg('No server response');
+      }else if(err.response?.status===409){
+        setErrMsg(err.response.data.message);
+      }else{
+        setErrMsg('Something wrong');
+      }
+    }
 
-    navigate("/dashboard");
   }
 
   return (
-    <div className="container w-25 bg-white rounded">
+    <div className="shadow container w-25 bg-white rounded">
       <h1 className="text-center">Sign In</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Login">
@@ -48,6 +67,7 @@ function LoginPage() {
         </Form.Group>
         <Button className="mb-3" type="submit">Login</Button>
       </Form>
+      <p className="text-danger">{errMsg}</p>
     </div>
   );
 }
