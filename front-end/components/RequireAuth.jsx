@@ -5,10 +5,11 @@ import React from 'react'
 
 const RequireAuth = ({allowedRoles}) => {
     const {auth} = useAuth();
+    console.log(auth.roles);
   return (
     auth?.roles
         ?<Outlet/>
-        :<Navigate to='/login'/>
+        :<Navigate to='/jobsad/create'/>
   )
 }
 export default RequireAuth

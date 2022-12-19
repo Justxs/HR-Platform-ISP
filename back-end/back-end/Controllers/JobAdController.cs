@@ -47,6 +47,7 @@ public class JobAdController : Controller
             Name = dto.Name,
             About = dto.About,
             UserId = dto.UserId,
+            Salary = dto.Salary,
             Aplications = new List<Aplication>(),
             Requirements = new List<Requirement>()
         };

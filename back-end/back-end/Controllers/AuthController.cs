@@ -31,6 +31,20 @@ namespace back_end.Controllers
             }
             return Ok(new { message = "Registration successful" });
         }
+        [Authorize(Roles = "Admin")]
+        [HttpPost("register/recruiter")]
+        public IActionResult RegisterRecruiter(RegisterDto dto)
+        {
+            try
+            {
+                _repository.RegisterRecruiter(dto);
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            return Ok(new { message = "Registration successful" });
+        }
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Login(LoginDto model)

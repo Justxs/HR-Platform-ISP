@@ -4,7 +4,7 @@ import useAuth from '../src/Hooks/useAuth';
 import { Button } from 'react-bootstrap';
 function DashBoardPage() {
     const navigate=useNavigate();
-    const {auth} = useAuth();
+    //const {auth} = useAuth();
 
   return (
     <div className="shadow container w-50 p-3 bg-white rounded">
@@ -16,6 +16,9 @@ function DashBoardPage() {
         <Button onClick={() => {navigate("/comment")}}>comment</Button>
         <br/>
         <Button onClick={() => {navigate("/jobOffer")}}>Create job offer</Button>
+        <br/>
+        <Button onClick={() => {navigate("/jobsad/create")}}>Create job ad</Button>
+        
       
     </div>
 
