@@ -3,26 +3,30 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import useAuth from '../src/Hooks/useAuth';
 
 function EditAccountPage() {
 
   const [user, setUser] = useState({});
+  const {auth} = useAuth();
   let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await fetch('http://localhost:5183/api/account/edit', {
-      method: 'PUT',
+    await fetch('http://localhost:5183/account/edit', {
+      method: 'POST',
       body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization':`Bearer ${auth?.token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
       });
+      navigate("/account");
   };
 
   return (
@@ -33,16 +37,16 @@ function EditAccountPage() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            value={user.name}
-            onChange={(event) => setUser({ ...user, name: event.target.value })}
+            value={user.firstname}
+            onChange={(event) => setUser({ ...user, firstname: event.target.value })}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formSurname">
           <Form.Label>Surname</Form.Label>
           <Form.Control
             type="text"
-            value={user.surname}
-            onChange={(event) => setUser({ ...user, surname: event.target.value })}
+            value={user.lastname}
+            onChange={(event) => setUser({ ...user, lastname: event.target.value })}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formUsername">

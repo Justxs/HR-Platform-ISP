@@ -3,28 +3,32 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import useAuth from '../src/Hooks/useAuth';
 
 function ChangePasswordPage() {
 
-  const [password, setPassword] = useState({
-    current: '',
-    new: '',
+  const {auth} = useAuth();
+  const [model, setPassword] = useState({
+    oldPassword: '',
+    newPassword: '',
   });
   let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await fetch('http://localhost:5183/api/account/passwordChange', {
-      method: 'PUT',
-      body: JSON.stringify(password),
+    await fetch('http://localhost:5183/account/passwordChange', {
+      method: 'POST',
+      body: JSON.stringify(model),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization':`Bearer ${auth?.token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         setPassword(data);
       });
+      navigate("/account");
   };
 
 
@@ -34,9 +38,9 @@ function ChangePasswordPage() {
         <Form.Label>Current Password</Form.Label>
         <Form.Control
           type="password"
-          value={password.current}
+          value={model.oldPassword}
           onChange={(event) =>
-            setPassword({ ...password, current: event.target.value })
+            setPassword({ ...model, oldPassword: event.target.value })
           }
         />
       </Form.Group>
@@ -44,8 +48,8 @@ function ChangePasswordPage() {
         <Form.Label>New Password</Form.Label>
         <Form.Control
           type="password"
-          value={password.new}
-          onChange={(event) => setPassword({ ...password, new: event.target.value })}
+          value={model.newPassword}
+          onChange={(event) => setPassword({ ...model, newPassword: event.target.value })}
         />
       </Form.Group>
       <Button className="mb-3" variant="primary" type="submit">
