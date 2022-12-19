@@ -89,6 +89,30 @@ namespace back_end.Data
             usr.PhoneNumber = user.PhoneNumber;
             return usr;
         }
+        public void RegisterRecruiter(RegisterDto model)
+        {
+            // validate
+            if (_context.Users.Any(x => x.Username == model.Username))
+                throw new Exception("Username '" + model.Username + "' is already taken");
+            if (_context.Users.Any(x => x.Email == model.Email))
+                throw new Exception("Email '" + model.Email + "' is already taken");
+            // map model to new user object
+            User user = new User
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                Username = model.Username,
+                Role = RoleStatus.Recruiter,
+                CreationDate = DateTime.Now,
+
+                // hash password
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
+            // save user
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
         public AuthenticateResponse Login(LoginDto model)
         {
             var user = _context.Users.SingleOrDefault(x => x.Email == model.Email);

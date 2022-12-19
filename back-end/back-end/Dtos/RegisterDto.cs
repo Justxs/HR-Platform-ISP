@@ -8,5 +8,6 @@
         public string? Password { set; get; }
         public string? Email { set; get; }
 
+
     }
 }

@@ -1,63 +1,50 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
-import { Button, Row } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
-function JobAdPage() {
-  let navigate = useNavigate();
+import React, { useState, useEffect } from 'react'
+import Table from 'react-bootstrap/Table';
+import { Button } from 'react-bootstrap';
+import JobAdsTable from '../components/JobAdsTable';
+import useAuth from '../src/Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+function JobAdsPage() {
+  const {auth} = useAuth();
+  const Navigate = useNavigate();
+  const [jobAds, setJobAds] = useState([]);
+  const [errMsg, setErrMsg] = useState('');
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${auth.token}`
+  };
+  
+  useEffect(() =>  {
+    axios.get('http://localhost:5183/api/job-ads', { headers })
+    .then(res =>{
+      setJobAds(res.data);
+    }).catch(res =>{
+      setErrMsg(res);
+    })
+  },[]);
+  
   return (
-    <div className="p-2 container bg-white rounded">
-      <h1>JobAdPage</h1>
-      <Row className="d-flex justify-content-center">
-        <Card className='m-2' style={{ width: '20rem' }}>
-          <Card.Body>
-            <Card.Title>Job title</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Creation date</Card.Subtitle>
-            <Card.Text>
-              about job
-            </Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-          <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        </ListGroup>
-          <Button variant="primary">Aplicate</Button>
-        </Card>
-        <Card className='m-2' style={{ width: '20rem' }}>
-          <Card.Body>
-            <Card.Title>Job title</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Creation date</Card.Subtitle>
-            <Card.Text>
-              about job
-            </Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-          <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        </ListGroup>
-          <Button variant="primary">Aplicate</Button>
-        </Card>
-        <Card className='m-2' style={{ width: '20rem' }}>
-          <Card.Body>
-            <Card.Title>Job title</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Creation date</Card.Subtitle>
-            <Card.Text>
-              about job
-            </Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-          <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        </ListGroup>
-          <Button variant="primary">Aplicate</Button>
-        </Card>
-      </Row>
-      {/*<button onClick={() => {navigate("/jobsad/id")}}>aplicate to job</button>*/}
+    <div className="container bg-white rounded">
+      <h1>JobsAdListPage</h1>
+      <p className='text-danger'>{errMsg}</p>
+      <Table responsive>
+        <thead>
+          <tr>{/* hardcoded*/}
+            <th>#</th>
+            <th>Name</th>
+            <th>About</th>
+            <th>Salary</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <JobAdsTable jobAds={jobAds}/>
+        </tbody>
+      </Table>
     </div>
   )
 }
 
-export default JobAdPage
+export default JobAdsPage

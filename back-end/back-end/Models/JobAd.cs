@@ -12,5 +12,7 @@
         public int AplicationId { get; set; }
         public List<Requirement> Requirements { get; set; }
         public JobOffer JobOffer { get; set; }
+        public int Salary { get; set; }
+
     }
 }

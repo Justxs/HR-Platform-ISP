@@ -1,29 +1,34 @@
 import React from 'react'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
-function JobOfferCreate() {
+import useAuth from '../src/Hooks/useAuth';
+import axios from '../src/Api/axios';
+
+function JobAdEdit() {
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [about, setAbout] = useState('');
   const [salary, setSalary] = useState('');
-  let navigate = useNavigate();
-  
+  const params = useParams();
+    console.log(params);
+  const {auth} = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();    
 
-    await fetch('http://localhost:5183/api/JobOffers/create',{
-      method: 'POST',
-      headers: {'Content-Type' : 'application/json'},
-      body: JSON.stringify({
+    await axios.put(`/api/job-ads/${params.id}`,      
+      JSON.stringify({
         name,
-        description,
+        about,
         salary
-      })
-    });
+      }),
+      {
+        headers: {'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${auth?.token}`},
+      }
+    );
 
     //navigate("/login");
   }
@@ -32,8 +37,6 @@ function JobOfferCreate() {
     <div className="container w-25 bg-white rounded">
       <h1 className="text-center">Create a job offer</h1>
       <Form onSubmit={handleSubmit}>
-        <Row>
-        <Col>
           <Form.Group className="mb-3" controlId="Reister">
             <Form.Label>Name of job</Form.Label>
             <Form.Control
@@ -43,32 +46,30 @@ function JobOfferCreate() {
               onChange={(event) => setName(event.target.value)}
               />
           </Form.Group>
-        </Col>
-        <Col>
+
           <Form.Group className="mb-3" controlId="Reister">
             <Form.Label>Job Description</Form.Label>
             <Form.Control
               required
-              type="text"
+              as="textarea"
               placeholder="Job Description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) => setAbout(event.target.value)}
               />
           </Form.Group>
-        </Col>
-        </Row>
+
         <Form.Group className="mb-3" controlId="Reister">
           <Form.Label>Salary</Form.Label>
           <Form.Control
             required
-            type="text"
+            type="number"
             placeholder="Salary"
-            onChange={(event) => setSalary(event.target.value)}
+            onChange={(event) => setSalary(parseInt(event.target.value))}
           />
-        </Form.Group>        
+        </Form.Group>
         <Button className="mb-3" type="submit">Submit job offer</Button>
       </Form>
     </div>
   );
 }
 
-export default JobOfferCreate
+export default JobAdEdit

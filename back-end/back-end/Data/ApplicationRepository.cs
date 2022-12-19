@@ -26,6 +26,12 @@ public class ApplicationRepository : IApplicationRepository
             .ToListAsync();
     }
 
+    public async Task<bool> ExistsAsync(int adId, int userId)
+    {
+        return await _dataContext.Aplication
+            .AnyAsync(x => x.UserId == userId && x.JobAdId == adId);
+    }
+
     public async Task<Aplication?> GetAsync(int id)
     {
         return await _dataContext.Aplication

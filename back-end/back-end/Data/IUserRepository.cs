@@ -5,6 +5,8 @@ namespace back_end.Data
     public interface IUserRepository
     {
         void Register(RegisterDto model);
+        void RegisterRecruiter(RegisterDto model);
+
         User GetByEmail(string email);
         User GetById(int id);
         void SaveChanges(User user);

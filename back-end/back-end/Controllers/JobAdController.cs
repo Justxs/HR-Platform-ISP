@@ -23,9 +23,11 @@ public class JobAdController : Controller
     }
     
     [HttpGet]
-    public async Task<IEnumerable<JobAd>> GetMany()
+    public async Task<IEnumerable<JobAdDto>> GetMany()
     { 
-        return await _jobAdRepository.GetAllAsync();
+        var jobAds = await _jobAdRepository.GetAllAsync();
+
+        return jobAds.ToDto();
     }
 
 
@@ -47,6 +49,8 @@ public class JobAdController : Controller
             Name = dto.Name,
             About = dto.About,
             UserId = dto.UserId,
+            CreationDate = DateTime.UtcNow,
+            Salary = dto.Salary,
             Aplications = new List<Aplication>(),
             Requirements = new List<Requirement>()
         };
@@ -86,6 +90,7 @@ public class JobAdController : Controller
 
         jobAd.Name = dto.Name;
         jobAd.About = dto.About;
+        jobAd.Salary = dto.Salary;
 
         await _jobAdRepository.SaveChangesAsync();
 
