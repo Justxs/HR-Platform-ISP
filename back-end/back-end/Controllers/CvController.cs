@@ -39,7 +39,12 @@ public class CvController : Controller
     [HttpPost]
     public async Task<ActionResult<CvDto>> Create(CreateCvDto dto)
     {
-        var path = $"{AppDomain.CurrentDomain.BaseDirectory}/cv/{dto.UserId}.pdf";
+        var directory = $"{AppDomain.CurrentDomain.BaseDirectory}/cv";
+        var path = $"{directory}/{dto.UserId}.pdf";
+        if (!System.IO.File.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
         try
         {
             var bytes = Convert.FromBase64String(dto.FileBase64);
