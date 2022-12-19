@@ -4,4 +4,4 @@ public record JobAdDto(int Id, string? Name, string? About, List<RequirementDto>
 
 public record CreateJobAdDto(string? Name, string? About, int UserId, int Salary, List<CreateRequirementDto> Requirements);
 
-public record UpdateJobAdDto(string? Name, string? About);
+public record UpdateJobAdDto(string? Name, string? About, int Salary);

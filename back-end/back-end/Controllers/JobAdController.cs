@@ -87,6 +87,7 @@ public class JobAdController : Controller
 
         jobAd.Name = dto.Name;
         jobAd.About = dto.About;
+        jobAd.Salary = dto.Salary;
 
         await _jobAdRepository.SaveChangesAsync();
 

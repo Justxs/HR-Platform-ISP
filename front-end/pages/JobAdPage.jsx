@@ -15,6 +15,7 @@ function JobAdsPage() {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${auth.token}`
   };
+  
   useEffect(() =>  {
     axios.get('http://localhost:5183/api/job-ads', { headers })
     .then(res =>{
@@ -26,7 +27,7 @@ function JobAdsPage() {
   
   return (
     <div className="container bg-white rounded">
-      <h1>ApplicationListPage</h1>
+      <h1>JobsAdListPage</h1>
       <p className='text-danger'>{errMsg}</p>
       <Table responsive>
         <thead>

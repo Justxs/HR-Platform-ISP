@@ -14,6 +14,7 @@ import EditAccountPage from '../pages/EditAccountPage'
 import CommentPage from '../pages/CommentPage'
 import ApplicationListPage from '../pages/ApplicationListPage'
 import JobAdPage from '../pages/JobAdPage'
+import JobAdEditPage from '../pages/JobAdEditPage'
 import JobAdCreate from '../pages/JobAdCreate'
 import JobOfferPage from '../pages/JobOfferPage'
 import JobOfferCreate from '../pages/JobOfferCreate'
@@ -29,12 +30,13 @@ function AppRoutes() {
           <Route path="login" element={<LoginPage/>} />
           <Route path="register" element={<CreateAccountPage/>} />
 
-          <Route path="jobsad/create" element={<JobAdCreate/>} />
-          <Route path="applications" element={<ApplicationListPage/>} />
-          <Route path="jobsad" element={<JobAdPage/>} />
+          
 
 
-          <Route element={<RequireAuth/>}>
+          {/*<Route element={<RequireAuth/>}>*/}
+            <Route path="jobsad/create" element={<JobAdCreate/>} />
+            <Route path="applications" element={<ApplicationListPage/>} />
+            <Route path="jobsad" element={<JobAdPage/>} />
             <Route path="dashboard" element={<DashBoardPage/>}/>
             <Route path="account" element={<AccountPage/>}/>
             <Route path="account/CV" element={<UploadCVPage/>}/>
@@ -46,8 +48,9 @@ function AppRoutes() {
             <Route path="jobOffer" element={<JobOfferPage/>} />
             <Route path="createAccount" element={<CreateRecruiterAccountPage/>}/>
             <Route path="job" element={<JobAdPage/>} />
+            <Route path="jobsad/:id" element={<JobAdEditPage/>} />
             <Route path="job/create" element={<JobOfferCreate/>} />
-          </Route>
+          {/*</Route>*/}
 
           <Route path="*" element={<Missing404/>} />
         </Route>
