@@ -41,6 +41,11 @@ public class ApplicationsController : Controller
     [HttpPost]
     public async Task<ActionResult<ApplicationDto>> Create(int adId, CreateApplicationDto dto)
     {
+        if (await _applicationRepository.ExistsAsync(adId, dto.UserId))
+        {
+            return BadRequest();
+        }
+        
         var application = new Aplication()
         {
             State = AplicationState.JobOfferSent,
