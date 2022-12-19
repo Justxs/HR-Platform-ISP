@@ -40,7 +40,8 @@ function AppRoutes() {
         <Route path="account" element={<AccountPage />} />
         <Route path="account/CV" element={<UploadCVPage />} />
         <Route path="account/import" element={<ImportData />} />
-        <Route path="account/passwordReset" element={<ChangePasswordPage />} />
+        <Route path="account/passwordChange" element={<ChangePasswordPage />} />
+        <Route path="account/deleteUser" element={<DeleteAccountPage />} />
         <Route path="account/edit" element={<EditAccountPage />} />
         <Route path="jobsad/id" element={<JobOfferPage />} />
         <Route path="comment" element={<CommentPage />} />
