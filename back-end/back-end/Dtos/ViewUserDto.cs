@@ -2,7 +2,7 @@
 
 namespace back_end.Dtos
 {
-    public class EditDto
+    public class ViewUserDto
     {
         public string? FirstName { set; get; }
         public string? LastName { set; get; }
@@ -11,6 +11,8 @@ namespace back_end.Dtos
         public string? LinkedInURL { set; get; }
         public string? About { set; get; }
         public string? PhoneNumber { set; get; }
+        public string? Email { set; get; }
+
 
     }
 }

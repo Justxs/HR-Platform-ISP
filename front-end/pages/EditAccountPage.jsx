@@ -53,6 +53,42 @@ function EditAccountPage() {
             onChange={(event) => setUser({ ...user, username: event.target.value })}
           />
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBirthdayDate">
+          <Form.Label>Birthday Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={user.birthdayDate}
+            onChange={(event) => setUser({ ...user, birthdayDate: event.target.value })}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formLinkedInURL">
+          <Form.Label>LinkedIn URL</Form.Label>
+          <Form.Control
+            type="text"
+            value={user.linkedInUrl}
+            onChange={(event) => setUser({ ...user, linkedInUrl: event.target.value })}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formAbout">
+          <Form.Label>About</Form.Label>
+          <Form.Control
+            type="textarea"
+            value={user.about}
+            onChange={(event) => setUser({ ...user, about: event.target.value })}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formPhoneNumber">
+          <Form.Label>Phone number</Form.Label>
+          <Form.Control
+            type="text"
+            value={user.phoneNumber}
+            onChange={(event) => setUser({ ...user, phoneNumber: event.target.value })}
+          />
+        </Form.Group>
         <Button className="mb-3" variant="primary" type="submit">
           Save
         </Button>

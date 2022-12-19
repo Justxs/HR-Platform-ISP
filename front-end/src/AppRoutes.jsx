@@ -31,7 +31,7 @@ function AppRoutes() {
             <Route path="account" element={<AccountPage/>}></Route>
             <Route path="account/CV" element={<UploadCVPage/>}></Route>
             <Route path="account/import" element={<ImportData/>}></Route>
-            <Route path="account/passwordReset" element={<ChangePasswordPage/>}></Route>
+            <Route path="account/passwordChange" element={<ChangePasswordPage/>}></Route>
             <Route path="account/edit" element={<EditAccountPage/>}></Route>
           </Route>
           <Route element={<RequireAuth allowedRoles={[0]}/>}>
