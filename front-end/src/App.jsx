@@ -5,9 +5,7 @@ function App() {
   const [username, setVerified] = useState('');
   
   return (
-    <>
       <AppRoutes></AppRoutes>
-    </>
   );
 }
 
