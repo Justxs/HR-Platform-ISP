@@ -24,8 +24,8 @@ function DeleteAccountPage() {
 
     <div className="container bg-white rounded">
       <Form onSubmit={handleSubmit}>
-        <h1 className="text-center">Your info</h1>
-        <Button className="mb-3" variant="primary" type="submit">
+        <h1 className="text-center">CONFIRM ACCOUNT DELETION</h1>
+        <Button className='m-2' variant="danger" type="submit">
           DELETE
         </Button>
       </Form>

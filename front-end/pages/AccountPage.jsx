@@ -8,7 +8,7 @@ import { Table } from 'react-bootstrap';
 
 function AccountPage() {
   const {auth} = useAuth();
-  const [data, setData] = useState('null');
+  const [data, setData] = useState('');
   useEffect(() => {
     async function fetchData() {
       const response = await fetch('http://localhost:5183/account/view',{
@@ -21,9 +21,6 @@ function AccountPage() {
     }
     fetchData();
   }, []);
-
-
-  
   let navigate = useNavigate();
   return (
     <div className="container bg-white rounded">
