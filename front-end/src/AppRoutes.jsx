@@ -21,6 +21,7 @@ import JobOfferCreate from "../pages/JobOfferCreate";
 import Layout from "../components/Layout";
 import Missing404 from "../pages/Missing404";
 import RequireAuth from "../components/RequireAuth";
+import DeleteAccountPage from "../pages/DeleteAccountPage";
 import JobAdView from "../pages/JobAdView";
 
 function AppRoutes() {

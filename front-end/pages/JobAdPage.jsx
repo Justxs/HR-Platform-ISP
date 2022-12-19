@@ -42,7 +42,7 @@ function JobAdsPage() {
 
   return (
     <div className="container bg-white rounded">
-      <h1>JobsAdListPage</h1>
+      <h1>Jobs List</h1>
       <p className="text-danger">{errMsg}</p>
       <>
         <Form.Label>Filter by description:</Form.Label>
@@ -63,8 +63,8 @@ function JobAdsPage() {
             {/* hardcoded*/}
             <th>#</th>
             <th>Name</th>
-            <th>About</th>
             <th>Salary</th>
+            <th>About</th>
             <th>Action</th>
           </tr>
         </thead>

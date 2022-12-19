@@ -82,10 +82,12 @@ function Navigation() {
     </Container>
     <Navbar.Collapse >
       <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/createAccount")}}>Create Recruiter Account</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/dashboard")}}>Home</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad/create")}}>Create JobsAd</Button>
       <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
+
     </Navbar.Collapse>
     </Navbar>
   </>)

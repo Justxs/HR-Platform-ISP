@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from '../src/Api/axios';
 
-function CreateAccountPage() {
+function CreateRecruiterAccountPage() {
   const [username, setUser] = useState('');
   const [password, setPwd] = useState('');
   const [pwdr, setPwdr] = useState('');
@@ -26,7 +26,7 @@ function CreateAccountPage() {
       return;
     }
     try{
-      const response = await axios.post('/api/register',
+      const response = await axios.post('/api/register/recruiter',
       JSON.stringify({
         firstname, lastname,
         username, password,
@@ -122,4 +122,4 @@ function CreateAccountPage() {
   );
 }
 
-export default CreateAccountPage
+export default CreateRecruiterAccountPage

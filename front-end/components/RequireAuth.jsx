@@ -9,7 +9,7 @@ const RequireAuth = ({allowedRoles}) => {
   return (
     auth?.roles
         ?<Outlet/>
-        :<Navigate to='/jobsad/create'/>
+        :<Navigate to='/job'/>
   )
 }
 export default RequireAuth

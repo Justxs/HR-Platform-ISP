@@ -1,9 +1,7 @@
 import React from "react";
-import JsPDF from "jspdf";
 import { Button } from "react-bootstrap";
 import axios from "../src/Api/axios";
 import useAuth from "../src/Hooks/useAuth";
-
 import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 
@@ -65,7 +63,7 @@ const JobAdsTable = ({ jobAds }) => {
               size="sm"
               variant="warning"
               onClick={() => {}}
-              href={`/jobsad/${info.id}`}
+              href={`/jobsad/edit/${info.id}`}
             >
               Edit
             </Button>{" "}
