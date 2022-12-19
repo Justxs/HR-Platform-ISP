@@ -14,6 +14,10 @@ namespace back_end.Data
         public IEnumerable<User> GetAll();
         public IEnumerable<User> GetAllCandidates();
         string CreateToken(User user);
+        void Edit(EditDto model, User user);
+        void ChangePassword(ChangePasswordDto model, User user);
+        void DeleteUser(User user);
+        ViewUserDto ShowUser(User user);
         Comment GetByIdComment(int id);
         void WriteComment(CommentDto comment);
     }
