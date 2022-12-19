@@ -1,5 +1,6 @@
 ﻿using back_end.Dtos;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -39,6 +40,50 @@ namespace back_end.Data
             // save user
             _context.Users.Add(user);
             _context.SaveChanges();
+        }
+        public void Edit(EditDto model, User user)
+        {
+            if (_context.Users.Any(x => x.Username == model.Username))
+                throw new Exception("Username '" + model.Username + "' is already taken");
+            if (_context.Users.Any(x => x.PhoneNumber == model.PhoneNumber))
+                throw new Exception("Phone number '" + model.PhoneNumber + "' is already taken");
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Username = model.Username;
+            user.BirthdayDate = model.BirthdayDate;
+            user.LinkedInUrl = model.LinkedInURL;
+            user.About = model.About;
+            user.PhoneNumber = model.PhoneNumber;
+
+            SaveChanges(user);  
+        }
+        public void ChangePassword(ChangePasswordDto model, User user)
+        {
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.OldPassword, user.Password))
+                throw new Exception("Password is incorrect");
+            else
+                user.Password = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+
+            SaveChanges(user);
+        }
+        public void DeleteUser(User user)
+        {   
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+        public ViewUserDto ShowUser(User user)
+        {
+            ViewUserDto usr = new ViewUserDto();
+            usr.FirstName= user.FirstName;
+            usr.LastName = user.LastName;
+            usr.Username = user.Username;
+            usr.Email = user.Email;
+            usr.BirthdayDate= user.BirthdayDate;
+            usr.LinkedInURL = user.LinkedInUrl;
+            usr.About = user.About;
+            usr.PhoneNumber = user.PhoneNumber;
+            return usr;
         }
         public AuthenticateResponse Login(LoginDto model)
         {
