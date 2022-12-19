@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import useAuth from "../src/Hooks/useAuth";
@@ -10,8 +10,7 @@ function LoginPage() {
   const [password, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -26,11 +25,11 @@ function LoginPage() {
         withCredentials: true
         });
       const token = response?.data?.token;
-      const role = response?.data?.role;
-      setAuth({email, password,token, role});
+      const roles = [response?.data?.role];
+      setAuth({email, password, token, roles});
       setEmail('');
       setPwd('');
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch (err) {
       if(!err?.response){
         setErrMsg('No server response');
@@ -44,7 +43,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="shadow container w-25 bg-white rounded">
+    <div className="shadow container w-50 p-4 bg-white rounded">
       <h1 className="text-center">Sign In</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Login">
@@ -65,7 +64,9 @@ function LoginPage() {
             onChange={(event) => setPwd(event.target.value)}
           />
         </Form.Group>
-        <Button className="mb-3" type="submit">Login</Button>
+        <div className="d-grid gap-2">
+          <Button size="lg" className="mb-3" type="submit">Login</Button>
+        </div>
       </Form>
       <p className="text-danger">{errMsg}</p>
     </div>

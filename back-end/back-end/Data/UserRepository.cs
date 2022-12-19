@@ -51,6 +51,7 @@ namespace back_end.Data
             // authentication successful so generate jwt token
             var jwtToken = CreateToken(user);
 
+            
             return new AuthenticateResponse(user, jwtToken);
         }
         public void SaveChanges(User user)

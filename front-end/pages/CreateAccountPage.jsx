@@ -52,7 +52,7 @@ function CreateAccountPage() {
   }
 
   return (
-    <div className="shadow container w-25 bg-white rounded">
+    <div className="shadow container w-50 p-3 bg-white rounded">
       <h1 className="text-center">Create an account</h1>
       <Form onSubmit={handleSubmit}>
         <Row>

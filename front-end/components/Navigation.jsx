@@ -1,57 +1,99 @@
 import Navbar from 'react-bootstrap/Navbar';
-import React, {useState, useEffect} from 'react';
-
-import Nav from 'react-bootstrap/Nav';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-
+import { Button } from 'react-bootstrap';
+import useAuth from '../src/Hooks/useAuth';
 function Navigation() {
-  return (
-      <>
-
-      <Navbar bg="primary" variant="light">
-        <Container>
-          <Navbar.Brand href="#home">
-            <div className="p-2 bg-white rounded">
-              <img
-                src="../src/assets/hr.png"
-                width="50"
-                />
-              </div>
-              </Navbar.Brand>
-        </Container>
-        <Navbar.Collapse>
-            <Nav className="me-auto fs-4 ">
-              <Nav.Link className='bg-light rounded mx-2' href="#">Home</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-      </Navbar>
-    </>
-    /*
-    else {
-      <>
-      <Navbar bg="primary" variant="light">
-      <Container>
-      <Navbar.Brand href="#home">
-      <div className="p-2 bg-white rounded">
-      <img
-      src="../src/assets/hr.png"
-      width="50"
-      />
-      </div>
+  const {auth} = useAuth();
+  const navigate = useNavigate()
+  let menu = (<>
+    <Navbar bg="primary" variant="light">
+    <Navbar.Brand onClick={() => {navigate("/")}} as={Button}>
+      <div className="mx-2 p-2 bg-white rounded">
+        <img
+          src="../src/assets/hr.png"
+          width="50"/>
+        </div>
+    </Navbar.Brand>
+    <Container>
+      <h2 className='text-light'>Welcome</h2>
+    </Container>
+    <Navbar.Collapse >
+      <Button className='m-2' variant="light" onClick={() => {navigate("/")}}>Home</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/login")}}>Login</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/Register")}}>Register</Button>
+    </Navbar.Collapse>
+    </Navbar>
+  </>);
+  if(auth.roles == 0){
+    menu =( 
+    <>
+    <Navbar bg="primary" variant="light">
+      <Navbar.Brand>
+        <div className="p-2 bg-white rounded">
+          <img
+            src="../src/assets/hr.png"
+            width="50"/>
+          </div>
       </Navbar.Brand>
+      <Container>
+        <h2 className='text-light'>Welcome Candidate</h2>
       </Container>
-      <Navbar.Collapse>
-      <Nav className="me-auto fs-4 ">
-      <Nav.Link className='bg-light rounded mx-2' href="#">Home</Nav.Link>
-      <Nav.Link className='bg-light rounded mx-2' href="#">Link</Nav.Link>
-      <Nav.Link className='bg-light rounded mx-2' href="#">Link</Nav.Link>
-      <Nav.Link  className='bg-light rounded mx-2' onClick={logout} href="/">Logout</Nav.Link>
-      </Nav>
+      <Navbar.Collapse >
+        <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
+        <Button className='m-2' variant="light" onClick={() => {navigate("/dashboard")}}>Home</Button>
+        <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
+        <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
       </Navbar.Collapse>
       </Navbar>
-      </>
-    */
+    </>)
+  }else if(auth.roles == 1){
+    (<>
+    <Navbar bg="primary" variant="light">
+    <Navbar.Brand>
+      <div className="p-2 bg-white rounded">
+        <img
+          src="../src/assets/hr.png"
+          width="50"/>
+        </div>
+    </Navbar.Brand>
+    <Container>
+      <h2 className='text-light'>Welcome Candidate</h2>
+    </Container>
+    <Navbar.Collapse >
+      <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/dashboard")}}>Home</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
+      <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
+    </Navbar.Collapse>
+    </Navbar>
+  </>)}
+  else if(auth.roles == 2){
+    (<>
+    <Navbar bg="primary" variant="light">
+    <Navbar.Brand>
+      <div className="p-2 bg-white rounded">
+        <img
+          src="../src/assets/hr.png"
+          width="50"/>
+        </div>
+    </Navbar.Brand>
+    <Container>
+      <h2 className='text-light'>Welcome Candidate</h2>
+    </Container>
+    <Navbar.Collapse >
+      <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/dashboard")}}>Home</Button>
+      <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
+      <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
+    </Navbar.Collapse>
+    </Navbar>
+  </>)
     
+  }
+  return (
+      menu
     );
   }
   

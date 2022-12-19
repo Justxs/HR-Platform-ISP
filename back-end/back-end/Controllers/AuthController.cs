@@ -38,6 +38,12 @@ namespace back_end.Controllers
             try
             {
                 var response = _repository.Login(model);
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Append("jwt", response.Token, cookieOptions);
                 return Ok(response);
             }
             catch (Exception ex)

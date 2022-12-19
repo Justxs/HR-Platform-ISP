@@ -1,29 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-
-function DashBoardPage(props) {
-
-  let navigate = useNavigate();
-  if (props.username === undefined ){
-    navigate('/');
-  }
+import useAuth from '../src/Hooks/useAuth';
+import { Button } from 'react-bootstrap';
+function DashBoardPage() {
+    const navigate=useNavigate();
+    const {auth} = useAuth();
   return (
-    <div className="shadow container w-25 bg-white rounded">
-      <h1>DashBoardPage</h1>
-        <button onClick={() => {navigate("/account")}}>Account</button>
+    <div className="shadow container w-50 p-3 bg-white rounded">
+      <h1 className='text-center'>DashBoardPage</h1>
+        <Button onClick={() => {navigate("/applications")}}>Application list</Button>
         <br/>
-        <button onClick={() => {navigate("/applications")}}>Application list</button>
+        <Button onClick={() => {navigate("/job")}}>Job ads list</Button>
         <br/>
-        <button onClick={() => {navigate("/job")}}>Job ads list</button>
+        <Button onClick={() => {navigate("/comment")}}>comment</Button>
         <br/>
-        <button onClick={() => {navigate("/comment")}}>comment</button>
+        <Button onClick={() => {navigate("/createAccount")}}>create reqruiter</Button>
         <br/>
-        <button onClick={() => {navigate("/createAccount")}}>create reqruiter</button>
+        <Button onClick={() => {navigate("/job/create")}}>Create job</Button>
         <br/>
-        <button onClick={() => {navigate("/job/create")}}>Create job</button>
-        <br/>
-        <button onClick={() => {navigate("/jobOffer")}}>Create job offer</button>
+        <Button onClick={() => {navigate("/jobOffer")}}>Create job offer</Button>
       
     </div>
 

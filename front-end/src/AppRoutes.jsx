@@ -26,26 +26,19 @@ function AppRoutes() {
           <Route path="" element={<HomePage/>}/>
           <Route path="login" element={<LoginPage/>} />
           <Route path="register" element={<CreateAccountPage/>} />
-          <Route element={<RequireAuth allowedRoles={[0,1,2]}/>}>
-            <Route path="dashboard" element={<DashBoardPage/>} />
-            <Route path="account" element={<AccountPage/>}></Route>
-            <Route path="account/CV" element={<UploadCVPage/>}></Route>
-            <Route path="account/import" element={<ImportData/>}></Route>
-            <Route path="account/passwordReset" element={<ChangePasswordPage/>}></Route>
-            <Route path="account/edit" element={<EditAccountPage/>}></Route>
-          </Route>
-          <Route element={<RequireAuth allowedRoles={[0]}/>}>
+          <Route element={<RequireAuth/>}>
+            <Route path="dashboard" element={<DashBoardPage/>}/>
+            <Route path="account" element={<AccountPage/>}/>
+            <Route path="account/CV" element={<UploadCVPage/>}/>
+            <Route path="account/import" element={<ImportData/>}/>
+            <Route path="account/passwordReset" element={<ChangePasswordPage/>}/>
+            <Route path="account/edit" element={<EditAccountPage/>}/>
             <Route path="jobsad" element={<JobAdPage/>} />
             <Route path="jobsad/id" element={<JobOfferPage/>} />
-
-          </Route>
-          <Route element={<RequireAuth allowedRoles={[1]}/>}>
             <Route path="comment" element={<CommentPage/>} />
             <Route path="applications" element={<ApplicationListPage/>} />
             <Route path="jobOffer" element={<JobOfferPage/>} />
-          </Route>
-          <Route element={<RequireAuth allowedRoles={[2]}/>}>
-            <Route path="createAccount" element={<CreateAccountPage/>}></Route>
+            <Route path="createAccount" element={<CreateAccountPage/>}/>
             <Route path="job" element={<JobAdPage/>} />
             <Route path="job/create" element={<JobOfferCreate/>} />
           </Route>
