@@ -1,9 +1,7 @@
 import React from 'react'
-import JsPDF from 'jspdf';
 import { Button } from 'react-bootstrap';
 import axios from '../src/Api/axios';
 import useAuth from "../src/Hooks/useAuth";
-
 import { useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 
@@ -44,7 +42,7 @@ import jsPDF from 'jspdf';
                 <Button size="sm" variant="primary" onClick={() => {}}>View</Button>{' '}
                 <Button size="sm" variant="warning" onClick={() => GeneratePDF(info.name, info.about, info.salary)}>Export</Button>{' '}
                 <Button size="sm" variant="danger" onClick={() => DeleteJobAd(info.id)} href="/jobsad">Delete</Button>{' '}
-                <Button size="sm" variant="warning" onClick={() => {} }href={`/jobsad/${info.id}`}>Edit</Button>{' '}
+                <Button size="sm" variant="warning" onClick={() => {} }href={`/jobsad/edit/${info.id}`}>Edit</Button>{' '}
             </td>
         </tr>))}
         </>

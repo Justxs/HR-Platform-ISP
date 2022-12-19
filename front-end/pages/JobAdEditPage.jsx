@@ -12,7 +12,6 @@ function JobAdEdit() {
   const [about, setAbout] = useState('');
   const [salary, setSalary] = useState('');
   const params = useParams();
-    console.log(params);
   const {auth} = useAuth();
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,7 @@ function JobAdEdit() {
 
   return (
     <div className="container w-25 bg-white rounded">
-      <h1 className="text-center">Create a job offer</h1>
+      <h1 className="text-center">Create a job ad</h1>
       <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Reister">
             <Form.Label>Name of job</Form.Label>

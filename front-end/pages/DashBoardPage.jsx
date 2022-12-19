@@ -11,7 +11,7 @@ function DashBoardPage() {
       <h1 className='text-center'>Dashboard</h1>
         <Button onClick={() => {navigate("/applications")}}>Application list</Button>
         <br/>
-        <Button onClick={() => {navigate("/job")}}>Job ads list</Button>
+        <Button onClick={() => {navigate("/jobsad")}}>Job ads list</Button>
         <br/>
         <Button onClick={() => {navigate("/comment")}}>comment</Button>
         <br/>

@@ -15,6 +15,7 @@ import CommentPage from '../pages/CommentPage'
 import ApplicationListPage from '../pages/ApplicationListPage'
 import JobAdPage from '../pages/JobAdPage'
 import JobAdEditPage from '../pages/JobAdEditPage'
+
 import JobAdCreate from '../pages/JobAdCreate'
 import JobOfferPage from '../pages/JobOfferPage'
 import JobOfferCreate from '../pages/JobOfferCreate'
@@ -47,7 +48,7 @@ function AppRoutes() {
             <Route path="jobOffer" element={<JobOfferPage/>} />
             <Route path="createAccount" element={<CreateRecruiterAccountPage/>}/>
             <Route path="job" element={<JobAdPage/>} />
-            <Route path="jobsad/:id" element={<JobAdEditPage/>} />
+            <Route path="jobsad/edit/:id" element={<JobAdEditPage/>} />
             <Route path="job/create" element={<JobOfferCreate/>} />
           {/*</Route>*/}
 

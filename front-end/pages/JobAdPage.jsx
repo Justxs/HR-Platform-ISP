@@ -27,14 +27,13 @@ function JobAdsPage() {
   
   return (
     <div className="container bg-white rounded">
-      <h1>JobsAdListPage</h1>
+      <h1>Jobs List</h1>
       <p className='text-danger'>{errMsg}</p>
       <Table responsive>
         <thead>
           <tr>{/* hardcoded*/}
             <th>#</th>
             <th>Name</th>
-            <th>About</th>
             <th>Salary</th>
             <th>Action</th>
           </tr>
