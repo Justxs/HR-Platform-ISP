@@ -1,9 +1,13 @@
 ﻿using back_end.Dtos;
+using back_end.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using MimeKit;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace back_end.Data
 {
@@ -134,6 +138,54 @@ namespace back_end.Data
         public IEnumerable<User> GetAll()
         {
             return _context.Users;
+        }
+        public IEnumerable<User> GetAllCandidates()
+        {
+            var users = _context.Users.Where(u => u.Role == RoleStatus.Candidate);
+            var commments = _context.Comments;
+            //var grouped = user.Join(_context.Comments, usr => usr.Id, comment => comment.UserId,(usr,comment)=>
+            //new User {
+            //    Id = usr.Id,
+            //    FirstName= usr.FirstName,
+            //    LastName= usr.LastName,
+            //    Email= usr.Email,
+            //    PhoneNumber= usr.PhoneNumber,
+            //    LinkedInUrl= usr.LinkedInUrl,
+            //    Comments=new List<Comment> { comment }
+            //});
+            var grouped = from usr in users
+                          join commment in commments on usr.Id equals commment.UserId into gj
+                          from subcommment in gj.DefaultIfEmpty()
+                          select new User
+                          {
+                              Id = usr.Id,
+                              FirstName = usr.FirstName,
+                              LastName = usr.LastName,
+                              Email = usr.Email,
+                              PhoneNumber = usr.PhoneNumber,
+                              LinkedInUrl = usr.LinkedInUrl,
+                              Comments = new List<Comment> { subcommment } ?? new List<Comment> { }
+                          };
+
+            return grouped;
+        }
+        public void WriteComment(CommentDto comment)
+        {
+            User user = GetById(comment.Id);
+            Comment comment1 = new Comment
+            {
+                Date= DateTime.Now,
+                User= user,
+                UserId = user.Id,
+                Header = comment.Comment
+            };
+
+            _context.Comments.Add(comment1);
+            _context.SaveChanges();
+        }
+        public Comment GetByIdComment(int id)
+        {
+            return _context.Comments.FirstOrDefault(u => u.UserId == id);
         }
     }
 }

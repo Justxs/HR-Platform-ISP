@@ -21,11 +21,12 @@ function LoginPage() {
         password
         }),
         {
+          
         headers: {'Content-Type': 'application/json'},
         withCredentials: true
         });
       const token = response?.data?.token;
-      const roles = [response?.data?.role];
+      const roles = response?.data?.role;
       setAuth({email, password, token, roles});
       setEmail('');
       setPwd('');

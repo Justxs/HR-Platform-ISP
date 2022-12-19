@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
+import CandidateTable from '../components/CandidateTable';
+import useAuth from '../src/Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 function ApplicationListPage() {
+  const {auth} = useAuth();
+  const Navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [errMsg, setErrMsg] = useState('');
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${auth.token}`
+  };
+  useEffect(() =>  {
+    axios.get('http://localhost:5183/api/candidate/GetAll', { headers })
+    .then(res =>{
+      setUsers(res.data);
+    }).catch(res =>{
+      setErrMsg(res);
+    })
+  },[]);
+  
   return (
     <div className="container bg-white rounded">
       <h1>ApplicationListPage</h1>
+      <p className='text-danger'>{errMsg}</p>
       <Table responsive>
         <thead>
           <tr>{/* hardcoded*/}
@@ -19,34 +42,7 @@ function ApplicationListPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Justas</td>
-            <td>Pranauskis</td>
-            <td>KTU@KTU.lt</td>
-            <td>+3706262644</td>
-            <td>linked.com</td>
-            <td>Komentaras</td>
-            <td>
-              <Button size="sm" variant="primary">Offer job</Button>{' '}
-              <Button size="sm" variant="warning">Comment</Button>{' '}
-              <Button size="sm" variant="danger">Delete</Button>{' '}
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Just</td>
-            <td>Pran</td>
-            <td>KT@KU.lt</td>
-            <td>+3706262644</td>
-            <td>linked.com</td>
-            <td>Komentaras</td>
-            <td>
-              <Button size="sm" variant="primary">Offer job</Button>{' '}
-              <Button size="sm" variant="warning">Comment</Button>{' '}
-              <Button size="sm" variant="danger">Delete</Button>{' '}
-            </td>
-          </tr>
+          <CandidateTable users={users}/>
         </tbody>
       </Table>
     </div>
