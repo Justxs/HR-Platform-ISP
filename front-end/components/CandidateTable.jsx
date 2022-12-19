@@ -2,8 +2,38 @@ import React from 'react'
 import { Button } from 'react-bootstrap';
 import axios from '../src/Api/axios';
 import { useEffect, useState } from 'react';
+import CommentPage from '../pages/CommentPage';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../src/Hooks/useAuth';
 
- const CandidateTable = ({users}) => {
+ const CandidateTable = ({users, refresh}) => {
+    const navigate = useNavigate()
+    const {auth} = useAuth();
+    const handleSubmit = (event) => {
+        fetch(`http://localhost:5183/api/candidate/DeleteComment/${event}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization':`Bearer ${auth?.token}`,
+          },
+        })
+      };
+      const offer = (event) => {
+        fetch(`http://localhost:5183/DownloadOffer/${event}`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization':`Bearer ${auth?.token}`,
+          },
+        }).then((response) => {
+            response.blob().then((blob) => {
+              let url = window.URL.createObjectURL(blob);
+              let a = document.createElement("a");
+              a.href = url;
+              a.download = "JobOffer.docx";
+              a.click()});
+            });
+      };
+
     return(
 
         <>
@@ -16,9 +46,9 @@ import { useEffect, useState } from 'react';
             <td>{info.linkedInUrl}</td>
             <td>{info?.comments[0]?.header}</td>
             <td>
-                <Button size="sm" variant="primary" onClick={() => {console.log(JSON.stringify(info.comments))}}>Offer job</Button>{' '}
-                <Button size="sm" variant="warning" onClick={() => {}}>Comment</Button>{' '}
-                <Button size="sm" variant="danger" onClick={() => {}}>Delete</Button>{' '}
+                <Button size="sm" variant="primary" onClick={() => {offer(info?.id)}}>Offer job</Button>{' '}
+                <Button size="sm" variant="warning" onClick={() => {navigate('/comment',{state: info.id})}}>Comment</Button>{' '}
+                <Button size="sm" variant="danger" onClick={() => {handleSubmit(info?.comments[0]?.id); refresh()}}>Delete</Button>{' '}
             </td>
         </tr>))}
         </>

@@ -193,15 +193,27 @@ namespace back_end.Data
 
             return grouped;
         }
-        public void WriteComment(CommentDto comment)
+        public void Delete(int id)
         {
-            User user = GetById(comment.Id);
+            try
+            {
+                Comment comment = _context.Comments.FirstOrDefault(i => i.Id == id);
+                _context.Comments.Remove(comment);
+                _context.SaveChanges();
+            }
+            catch(Exception e) 
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void WriteComment(string comment, User user)
+        {
             Comment comment1 = new Comment
             {
                 Date= DateTime.Now,
                 User= user,
                 UserId = user.Id,
-                Header = comment.Comment
+                Header = comment
             };
 
             _context.Comments.Add(comment1);

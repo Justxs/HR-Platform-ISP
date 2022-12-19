@@ -1,6 +1,7 @@
 ﻿using back_end.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace back_end.Controllers
 {
@@ -21,12 +22,28 @@ namespace back_end.Controllers
             var users = _repository.GetAllCandidates();
             return Ok(users);
         }
-        [Authorize(Roles = "Recruiter")]
-        [HttpPost("[action]")]
-        public IActionResult WriteComment(CommentDto commentDto)
+        [AllowAnonymous]
+        [HttpPost("[action]/{userId}/{comment}")]
+        public IActionResult WriteComment(string comment, int userId)
         {
-            _repository.WriteComment(commentDto);
+            var user = _repository.GetById(Convert.ToInt16(userId));
+            _repository.WriteComment(comment, user);
             return Ok("Comment Written");
+        }
+        [AllowAnonymous]
+        [HttpDelete("[action]/{userId}")]
+        public IActionResult DeleteComment(int userId)
+        {
+            try
+            {
+                _repository.Delete(userId);
+                return Ok("Comment Deleted");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+
+            }
         }
         [Authorize(Roles = "Recruiter")]
         [HttpGet("[action]")]

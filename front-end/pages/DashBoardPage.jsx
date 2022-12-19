@@ -13,8 +13,6 @@ function DashBoardPage() {
         <br/>
         <Button onClick={() => {navigate("/jobsad")}}>Job ads list</Button>
         <br/>
-        <Button onClick={() => {navigate("/comment")}}>comment</Button>
-        <br/>
         <Button onClick={() => {navigate("/jobOffer")}}>Create job offer</Button>
         <br/>
         <Button onClick={() => {navigate("/jobsad/create")}}>Create job ad</Button>

@@ -23,7 +23,10 @@ function ApplicationListPage() {
       setErrMsg(res);
     })
   },[]);
-  
+  const refresh = async() =>{
+    let response = await axios.get('http://localhost:5183/api/candidate/GetAll', { headers })
+    setUsers(response.data)
+  }
   return (
     <div className="container bg-white rounded">
       <h1>ApplicationListPage</h1>
@@ -42,7 +45,7 @@ function ApplicationListPage() {
           </tr>
         </thead>
         <tbody>
-          <CandidateTable users={users}/>
+          <CandidateTable users={users} refresh={refresh}/>
         </tbody>
       </Table>
     </div>

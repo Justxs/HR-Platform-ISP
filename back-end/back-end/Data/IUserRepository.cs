@@ -19,6 +19,7 @@ namespace back_end.Data
         void DeleteUser(User user);
         ViewUserDto ShowUser(User user);
         Comment GetByIdComment(int id);
-        void WriteComment(CommentDto comment);
+        void WriteComment(string comment, User user);
+        void Delete(int id);
     }
 }

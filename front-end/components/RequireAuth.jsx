@@ -3,13 +3,13 @@ import useAuth from "../src/Hooks/useAuth";
 
 import React from 'react'
 
-const RequireAuth = ({allowedRoles}) => {
+const RequireAuth = () => {
     const {auth} = useAuth();
     console.log(auth.roles);
   return (
     auth?.roles
         ?<Outlet/>
-        :<Navigate to='/job'/>
+        :<Navigate to='/login'/>
   )
 }
 export default RequireAuth

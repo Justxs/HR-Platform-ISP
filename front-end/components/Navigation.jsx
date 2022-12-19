@@ -7,6 +7,9 @@ import useAuth from '../src/Hooks/useAuth';
 function Navigation() {
   const {auth} = useAuth();
   const navigate = useNavigate()
+  function refreshPage() {
+    window.location.reload(false);
+  }
   let menu = (<>
     <Navbar bg="primary" variant="light">
     <Navbar.Brand onClick={() => {navigate("/")}} as={Button}>
@@ -42,7 +45,7 @@ function Navigation() {
       <Navbar.Collapse >
         <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
         <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
-        <Button className='m-2' variant="danger" onClick={() => {navigate("/login")}}>Logout</Button>
+        <Button className='m-2' variant="danger" onClick={refreshPage}>Logout</Button>
       </Navbar.Collapse>
       </Navbar>
     </>)
@@ -58,12 +61,12 @@ function Navigation() {
         </div>
     </Navbar.Brand>
     <Container>
-      <h2 className='text-light'>Welcome Reqriter</h2>
+      <h2 className='text-light'>Welcome Reqruiter</h2>
     </Container>
     <Navbar.Collapse >
       <Button className='m-2' variant="light" onClick={() => {navigate("/account")}}>Account</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/applications")}}>Applications</Button>
-      <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
+      <Button className='m-2' variant="danger" onClick={refreshPage}>Logout</Button>
     </Navbar.Collapse>
     </Navbar>
   </>)}
@@ -86,7 +89,7 @@ function Navigation() {
       <Button className='m-2' variant="light" onClick={() => {navigate("/dashboard")}}>Home</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad")}}>JobAds</Button>
       <Button className='m-2' variant="light" onClick={() => {navigate("/jobsad/create")}}>Create JobsAd</Button>
-      <Button className='m-2' variant="danger" onClick={() => {navigate("/jobsad")}}>Logout</Button>
+      <Button className='m-2' variant="danger" onClick={refreshPage}>Logout</Button>
 
     </Navbar.Collapse>
     </Navbar>
