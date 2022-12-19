@@ -34,7 +34,7 @@ function JobAdEdit() {
 
   return (
     <div className="container w-25 bg-white rounded">
-      <h1 className="text-center">Create a job ad</h1>
+      <h1 className="text-center">Edit ad {params.id}</h1>
       <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Reister">
             <Form.Label>Name of job</Form.Label>
