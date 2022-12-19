@@ -26,12 +26,13 @@ function AppRoutes() {
           <Route path="" element={<HomePage/>}/>
           <Route path="login" element={<LoginPage/>} />
           <Route path="register" element={<CreateAccountPage/>} />
+
           <Route element={<RequireAuth/>}>
             <Route path="dashboard" element={<DashBoardPage/>}/>
             <Route path="account" element={<AccountPage/>}/>
             <Route path="account/CV" element={<UploadCVPage/>}/>
             <Route path="account/import" element={<ImportData/>}/>
-            <Route path="account/passwordReset" element={<ChangePasswordPage/>}/>
+            <Route path="account/passwordChange" element={<ChangePasswordPage/>}/>
             <Route path="account/edit" element={<EditAccountPage/>}/>
             <Route path="jobsad" element={<JobAdPage/>} />
             <Route path="jobsad/id" element={<JobOfferPage/>} />
