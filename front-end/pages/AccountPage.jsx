@@ -36,6 +36,8 @@ function AccountPage() {
       <Button style={{display: 'inline-block', margin: '10px'}} className="mb-3" onClick={() => {navigate("/account/passwordChange")}}>Reset password</Button>
 
       <Button style={{display: 'inline-block', margin: '10px'}} className="mb-3" onClick={() => {navigate("/account/edit")}}>edit account</Button>
+
+      <Button style={{display: 'inline-block',variant: 'danger', margin: '10px'}} className="mb-3" onClick={() => {navigate("/account/delete")}}>DELETE account</Button>
       <br/><br/>
 
       <h1 className="text-center">Your info</h1>
