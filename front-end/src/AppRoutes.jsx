@@ -32,7 +32,7 @@ function AppRoutes() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<CreateAccountPage />} />
 
-        <Route element={<RequireAuth/>}>
+        {/*<Route element={<RequireAuth/>}>*/}
           <Route path="jobsad/create" element={<JobAdCreate />} />
           <Route path="applications" element={<ApplicationListPage />} />
           <Route path="jobsad" element={<JobAdPage />} />
@@ -41,6 +41,7 @@ function AppRoutes() {
           <Route path="account/CV" element={<UploadCVPage />} />
           <Route path="account/import" element={<ImportData />} />
           <Route path="account/passwordReset" element={<ChangePasswordPage />} />
+          <Route path="account/deleteUser" element={<DeleteAccountPage />} />
           <Route path="account/edit" element={<EditAccountPage />} />
           <Route path="jobsad/id" element={<JobOfferPage />} />
           <Route path="comment" element={<CommentPage />} />
@@ -50,7 +51,7 @@ function AppRoutes() {
           <Route path="jobsad/:id" element={<JobAdEditPage />} />
           <Route path="jobsad-view/:id" element={<JobAdView />} />
           <Route path="job/create" element={<JobOfferCreate />} />
-        </Route>
+        
 
         <Route path="*" element={<Missing404 />} />
       </Route>

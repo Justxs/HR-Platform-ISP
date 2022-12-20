@@ -28,7 +28,7 @@ function ApplicationListPage() {
     setUsers(response.data)
   }
   return (
-    <div className="container bg-white rounded">
+    <div className="shadow container bg-white rounded">
       <h1>ApplicationListPage</h1>
       <p className='text-danger'>{errMsg}</p>
       <Table responsive>
